@@ -38,6 +38,11 @@
   transform: scale(1);
 }
 
+#dysperse-button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 #dysperse-button:active {
   transform: scale(0.95);
   transition: none;
@@ -163,4 +168,16 @@ textarea.dysperse-popup-input {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.dysperse-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: hsl(240, 11%, 20%);
+  padding: 10px 20px;
+  border-radius: 999px;
+  color: #fff;
+  z-index: 100000000000000;
 }

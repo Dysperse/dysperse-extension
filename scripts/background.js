@@ -3,18 +3,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     fetch("https://my.dysperse.com/api/session")
       .then((res) => res.json())
       .then((data) => {
-        sendResponse(data); // Send the session data back to the content script
+        sendResponse(data);
       })
       .catch((error) => {
         console.error(error);
-        sendResponse(null); // If an error occurs, send null back to the content script
+        sendResponse(null);
       });
 
-    return true; // Indicates that the response will be sent asynchronously
+    return true;
   }
 
   if (message.action == "useApi") {
-    // { action: "useApi", endpoint, params },
     const { endpoint, params } = message;
     fetch(
       `https://my.dysperse.com/api/${endpoint}?${new URLSearchParams(params)}`
@@ -27,5 +26,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.error(error);
         sendResponse(null);
       });
+    return true;
   }
 });

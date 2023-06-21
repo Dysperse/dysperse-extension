@@ -22,17 +22,29 @@ const useApi = async (endpoint, params) => {
   };
   return new Promise((resolve, reject) => {
     chrome.runtime.sendMessage(
-      { action: "useApi", endpoint, addedParams },
+      { action: "useApi", endpoint, params: addedParams },
       (response) => {
-        if (response.success) {
-          resolve(response.data);
+        if (response) {
+          resolve(response);
         } else {
-          reject(response.error);
+          reject(false);
         }
       }
     );
   });
 };
+
+function toast(message) {
+  const toast = document.createElement("div");
+  toast.className = "dysperse-toast";
+  toast.innerHTML = message;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 1000);
+}
 
 const icons = {
   createTask: `<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="48"><path d="M480-80q-85 0-158-30.5T195-195q-54-54-84.5-127T80-480q0-84 30.5-157T195-764q54-54 127-85t158-31q75 0 140 24t117 66l-43 43q-44-35-98-54t-116-19q-145 0-242.5 97.5T140-480q0 145 97.5 242.5T480-140q37 0 71.5-7t66.5-21l45 46q-41 20-87 31t-96 11Zm290-90v-120H650v-60h120v-120h60v120h120v60H830v120h-60ZM421-298 256-464l45-45 120 120 414-414 46 45-460 460Z"/></svg>`,
@@ -118,6 +130,7 @@ function renderPopup() {
   dateInput.className = "dysperse-popup-input";
   dateInput.placeholder = "Date";
   dateInput.type = "datetime-local";
+
   dateInput.value = `${d.getFullYear()}-${d
     .getMonth()
     .toString()
@@ -142,8 +155,19 @@ function renderPopup() {
       pinned: false,
     };
 
-    const res = await useApi("boards/column/task/create", data);
-    console.log(res);
+    try {
+      submitButton.innerHTML = "Creating...";
+      submitButton.disabled = true;
+      const res = await useApi("property/boards/column/task/create", data);
+      titleInput.value = "";
+      descriptionInput.value = "";
+      submitButton.innerHTML = "Create Task";
+      submitButton.disabled = false;
+      toast("Created task!");
+      handleClose();
+    } catch {
+      toast("Yikes! Something went wrong. Please try again later");
+    }
   };
 
   submitButton.addEventListener("click", handleSubmit);
