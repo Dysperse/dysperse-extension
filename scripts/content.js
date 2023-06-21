@@ -43,7 +43,7 @@ function toast(message) {
 
   setTimeout(() => {
     toast.remove();
-  }, 1000);
+  }, 2000);
 }
 
 const icons = {
@@ -131,13 +131,13 @@ function renderPopup() {
   dateInput.placeholder = "Date";
   dateInput.type = "datetime-local";
 
-  dateInput.value = `${d.getFullYear()}-${d
-    .getMonth()
+  dateInput.value = `${d.getFullYear()}-${(d.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}T${d
-    .getHours()
+    .padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}T${(
+    d.getHours() + 1
+  )
     .toString()
-    .padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
+    .padStart(2, "0")}:${(d.getMinutes() + 1).toString().padStart(2, "0")}`;
 
   const submitButton = document.createElement("div");
   submitButton.className = "dysperse-popup-button";
@@ -147,10 +147,8 @@ function renderPopup() {
   const handleSubmit = async () => {
     const data = {
       due: dateInput.value,
-      date: dateInput.value,
       title: titleInput.value,
-      boardId: 1,
-      columnId: -1,
+      columnId: "-1",
       description: descriptionInput.value,
       pinned: false,
     };
@@ -159,6 +157,7 @@ function renderPopup() {
       submitButton.innerHTML = "Creating...";
       submitButton.disabled = true;
       const res = await useApi("property/boards/column/task/create", data);
+      console.log(res);
       titleInput.value = "";
       descriptionInput.value = "";
       submitButton.innerHTML = "Create Task";
