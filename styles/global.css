@@ -1,0 +1,189 @@
+#dysperse-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background: transparent;
+  margin: 20px;
+  z-index: 10000000000;
+}
+#dysperse-container *:not(.dysperse-font-heading) {
+  font-family: "Space Grotesk", sans-serif !important;
+  box-sizing: border-box;
+  color-scheme: dark;
+}
+
+#dysperse-container *::-webkit-scrollbar {
+  display: none;
+}
+
+#dysperse-container .dysperse-font-heading {
+  font-family: "League Gothic", sans-serif !important;
+  text-transform: uppercase !important;
+}
+
+#dysperse-button {
+  position: relative;
+  background: #009fff;
+  background: -webkit-linear-gradient(45deg, #009fff, #ec2f4b);
+  background: linear-gradient(45deg, #009fff, #ec2f4b);
+  border-radius: 100%;
+  display: flex;
+  z-index: 10000000000;
+  align-items: center;
+  color: #000;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1);
+}
+
+#dysperse-button.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#dysperse-button:active {
+  transform: scale(0.95);
+  transition: none;
+}
+
+#dysperse-close-button {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  z-index: 1000000000;
+  background-color: hsl(240, 11%, 20%);
+  color: #fff;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.17, 0.67, 0.29, 1.54);
+  width: 24px;
+  height: 24px;
+  transform: scale(0);
+}
+
+#dysperse-container:hover #dysperse-close-button {
+  transform: scale(1);
+}
+
+#dysperse-popup {
+  opacity: 0;
+  position: fixed;
+  user-select: none;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: hsla(240, 11%, 10%, 0.1);
+  backdrop-filter: blur(3px);
+  transition: all 0.2s;
+  z-index: 1000000000000;
+}
+
+#dysperse-popup.dysperse-popup-open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#dysperse-popup #dysperse-popup-container {
+  position: absolute;
+  top: 50%;
+  border-radius: 20px;
+  width: 500px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  max-width: calc(100vw - 40px);
+  left: 50%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: hsl(240, 11%, 20%);
+  transition: all 0.1s;
+  max-height: calc(100vh - 40px);
+}
+
+#dysperse-popup #dysperse-popup-container {
+  transform: translate(-50%, -10%) scale(0.9);
+}
+
+#dysperse-popup.dysperse-popup-open #dysperse-popup-container {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#dysperse-popup-title {
+  font-size: 20px;
+  padding: 20px !important;
+  font-size: 50px;
+  margin-bottom: 10px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+}
+
+.dysperse-popup-input,
+.dysperse-popup-button {
+  padding: 10px 15px;
+  font-size: 15px;
+  border: 1px solid hsl(240, 11%, 30%) !important;
+  background: hsl(240, 11%, 25%) !important;
+  backdrop-filter: blur(10px);
+  position: sticky;
+  border-radius: 4px;
+  outline: none;
+  color: #fff !important;
+  margin-bottom: 10px;
+  margin-top: 0;
+  top: 0;
+  width: 100%;
+}
+
+textarea.dysperse-popup-input {
+  min-height: 50px;
+  max-height: 100px;
+  resize: vertical;
+}
+
+#dysperse-popup-content {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.dysperse-popup-button {
+  width: auto;
+  margin-bottom: 0;
+  border-radius: 5px;
+}
+
+.dysperse-popup-input:focus,
+.dysperse-popup-button:focus {
+  box-shadow: inset 0 0 0 2px #009fff;
+}
+
+#dysperse-popup-footer {
+  padding: 20px;
+  padding-top: 0px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.dysperse-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: hsl(240, 11%, 20%);
+  padding: 10px 20px;
+  border-radius: 999px;
+  color: #fff;
+  z-index: 100000000000000;
+}
+.dysperse-alert {
+  background: hsk(240, 11%, 25%);
+  padding: 10px 20px;
+  border: 1px solid hsl(240, 11%, 30%);
+  margin-bottom: 10px;
+}
