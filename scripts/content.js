@@ -142,11 +142,7 @@ function renderPopup() {
       pinned: false,
     };
 
-    const res = await fetch(
-      "https://my.dysperse.com/api/property/boards/column/task/create?" +
-        new URLSearchParams(data)
-    ).then((res) => res.json());
-
+    const res = await useApi("boards/column/task/create", data);
     console.log(res);
   };
 
