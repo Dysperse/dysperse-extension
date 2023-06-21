@@ -101,11 +101,28 @@ function renderPopup() {
 </div>
 `;
 
+  const popupContent = popup.querySelector("#dysperse-popup-content");
+  const popupFooter = popup.querySelector("#dysperse-popup-footer");
   const popupContainer = popup.querySelector("#dysperse-popup-container");
   popupContainer.addEventListener("click", (e) => e.stopPropagation());
 
-  const popupContent = popup.querySelector("#dysperse-popup-content");
-  const popupFooter = popup.querySelector("#dysperse-popup-footer");
+  if (!session?.current) {
+    popupContent.innerHTML = `<div class="dysperse-alert">Please sign in to your Dysperse account to create a task.</div>`;
+    const submitButton = document.createElement("div");
+    submitButton.className = "dysperse-popup-button";
+    submitButton.innerHTML = "Sign in";
+    submitButton.tabIndex = "0";
+    submitButton.addEventListener("click", () => {
+      window.open("https://my.dysperse.com/login?close=true", "_blank");
+      //   When user is back to this tab,reload page
+      document.addEventListener("visibilitychange", () => {
+        window.location.reload();
+      });
+    });
+
+    popupContent.appendChild(submitButton);
+    return;
+  }
 
   const titleInput = document.createElement("input");
   titleInput.className = "dysperse-popup-input";
@@ -133,11 +150,10 @@ function renderPopup() {
 
   dateInput.value = `${d.getFullYear()}-${(d.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}T${(
-    d.getHours() + 1
-  )
+    .padStart(2, "0")}-${d.getDate().toString().padStart(2, "0")}T${d
+    .getHours()
     .toString()
-    .padStart(2, "0")}:${(d.getMinutes() + 1).toString().padStart(2, "0")}`;
+    .padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}`;
 
   const submitButton = document.createElement("div");
   submitButton.className = "dysperse-popup-button";

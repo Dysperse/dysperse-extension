@@ -181,3 +181,9 @@ textarea.dysperse-popup-input {
   color: #fff;
   z-index: 100000000000000;
 }
+.dysperse-alert {
+  background: hsk(240, 11%, 25%);
+  padding: 10px 20px;
+  border: 1px solid hsl(240, 11%, 30%);
+  margin-bottom: 10px;
+}
