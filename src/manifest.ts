@@ -3,6 +3,7 @@ import packageData from '../package.json'
 
 //@ts-ignore
 const isDev = process.env.NODE_ENV == 'development'
+const isFirefox = process.env.BROWSER === 'firefox'
 
 export default defineManifest({
   name: `${packageData.displayName || packageData.name}${isDev ? ` ➡️ Dev` : ''}`,
@@ -20,8 +21,15 @@ export default defineManifest({
     default_icon: 'img/logo-48.png',
   },
   background: {
-    service_worker: 'src/background/index.ts',
+    scripts: isFirefox ? ['src/background/index.ts'] : undefined,
+    //@ts-ignore
+    service_worker: isFirefox ? undefined : 'src/background/index.ts',
     type: 'module',
+  },
+  browser_specific_settings: {
+    gecko: {
+      id: 'hello@dysperse.com',
+    },
   },
   content_scripts: [
     {
