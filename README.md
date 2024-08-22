@@ -8,3 +8,7 @@ Run `npm run build:firefox` to run the build script for Firefox. The output will
 
 ## Chrome build instructions
 Run `npm run build` to run the build script for Chrome. The output will be in the `build` folder.
+
+
+## GitHub
+https://github.com/Dysperse/dysperse-extension
