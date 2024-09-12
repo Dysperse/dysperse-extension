@@ -11,12 +11,32 @@ export const Popup = () => {
     })
   }, [])
 
-  const t = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const activeTab = tabs[0]
-      chrome.runtime.sendMessage({ action: 'open_side_panel', activeTab })
-    })
+  const openSidePanel = () => {
+    try {
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        const activeTab = tabs[0]
+        chrome.runtime.sendMessage({ action: 'open_side_panel', activeTab })
+      })
+    } catch (e) {
+      console.log(e)
+      window.open('https://app.dysperse.com')
+    }
   }
+
+  useEffect(() => {
+    // Listen for messages from the iframe
+    const handleMessage = (event: any) => {
+      if (event.data === 'openSidePanel') {
+        openSidePanel()
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+
+    return () => {
+      window.removeEventListener('message', handleMessage)
+    }
+  }, [])
 
   const host = 'https://app.dysperse.com'
 

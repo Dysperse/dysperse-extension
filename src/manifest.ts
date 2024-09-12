@@ -26,11 +26,13 @@ export default defineManifest({
     service_worker: isFirefox ? undefined : 'src/background/index.ts',
     type: 'module',
   },
-  browser_specific_settings: {
-    gecko: {
-      id: 'hello@dysperse.com',
+  ...(isFirefox && {
+    browser_specific_settings: {
+      gecko: {
+        id: 'hello@dysperse.com',
+      },
     },
-  },
+  }),
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*'],
