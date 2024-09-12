@@ -1,7 +1,7 @@
 {
   "name": "dysperse-extension",
   "displayName": "Dysperse",
-  "version": "1",
+  "version": "2",
   "author": "**",
   "description": "",
   "type": "module",
@@ -17,7 +17,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build:chrome": "tsc && vite build",
     "build:firefox": "set BROWSER=firefox&& tsc && vite build",
     "preview": "vite preview",
     "fmt": "prettier --write '**/*.{tsx,ts,json,css,scss,md}'",
