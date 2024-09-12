@@ -21,15 +21,12 @@ export const Popup = () => {
   const host = 'https://app.dysperse.com'
 
   return (
-    <>
-      <button onClick={t}>Open Side Panel</button>
-      <iframe
-        src={`${host}/chrome-extension?pageData=${encodeURIComponent(JSON.stringify(data))}`}
-        width={400}
-        height={400}
-        style={{ border: 0, margin: 0 }}
-      />
-    </>
+    <iframe
+      src={`${host}/chrome-extension?pageData=${encodeURIComponent(JSON.stringify(data))}`}
+      width={400}
+      height={400}
+      style={{ border: 0, margin: 0 }}
+    />
   )
 }
 
