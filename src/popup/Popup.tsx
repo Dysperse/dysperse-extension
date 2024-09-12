@@ -11,15 +11,25 @@ export const Popup = () => {
     })
   }, [])
 
+  const t = () => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      const activeTab = tabs[0]
+      chrome.runtime.sendMessage({ action: 'open_side_panel', activeTab })
+    })
+  }
+
   const host = 'https://app.dysperse.com'
 
   return (
-    <iframe
-      src={`${host}/chrome-extension?pageData=${encodeURIComponent(JSON.stringify(data))}`}
-      width={400}
-      height={400}
-      style={{ border: 0, margin: 0 }}
-    />
+    <>
+      <button onClick={t}>Open Side Panel</button>
+      <iframe
+        src={`${host}/chrome-extension?pageData=${encodeURIComponent(JSON.stringify(data))}`}
+        width={400}
+        height={400}
+        style={{ border: 0, margin: 0 }}
+      />
+    </>
   )
 }
 
