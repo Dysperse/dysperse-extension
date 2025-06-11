@@ -19,7 +19,7 @@ export const Popup = () => {
       })
     } catch (e) {
       console.log(e)
-      window.open('https://app.dysperse.com')
+      window.open('https://go.dysperse.com')
     }
   }
 
@@ -38,7 +38,7 @@ export const Popup = () => {
     }
   }, [])
 
-  const host = 'https://app.dysperse.com'
+  const host = 'https://go.dysperse.com'
 
   return (
     <iframe
